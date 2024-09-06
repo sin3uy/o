@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر سيناوي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #F3F3F3;
+        }
+        .top-menu {
+            background-color: #141B3D;
+            color: #FFFFFF;
+            text-align: center;
+            height: 80px;
+            line-height: 80px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .table-container {
+            width: 90%;
+            margin: 100px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .price-table, .offer-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .price-table th, .price-table td, .offer-table th, .offer-table td {
+            border: 1px solid #141B3D;
+            padding: 10px;
+            text-align: center;
+        }
+        .price-table th, .offer-table th {
+            background-color: #141B3D;
+            color: #FFFFFF;
+        }
+        .price-table td, .offer-table td {
+            background-color: #FFFFFF;
+        }
+        .price-table td, .offer-table td {
+            direction: rtl;
+        }
+        .price-table th, .price-table td {
+            width: 50%;
+        }
+        .price-table .price-col, .price-table .shd-col {
+            text-align: center;
+        }
+        .offer-table .discount {
+            color: red;
+            text-decoration: line-through;
+        }
+        .offer-table .validity {
+            background-color: #141B3D;
+            color: #FFFFFF;
+            padding: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Styling for the WhatsApp button */
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px auto; /* Centering the button */
+            width: fit-content;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .whatsapp-btn:hover {
+            background-color: #20c659;
+            transform: scale(1.05);
+        }
+        .whatsapp-btn img {
+            margin-left: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-menu">متجر سيناوي</div>
+
+    <div class="table-container">
+
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>السعر</th>
+                    <th>عدد الشدات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="price-col">25 جنيه</td><td class="shd-col">30 شده</td></tr>
+                <tr><td class="price-col">50 جنيه</td><td class="shd-col">60 شده</td></tr>
+                <tr><td class="price-col">100 جنيه</td><td class="shd-col">120 شده</td></tr>
+                <tr><td class="price-col">245 جنيه</td><td class="shd-col">360 شده</td></tr>
+                <tr><td class="price-col">495 جنيه</td><td class="shd-col">720 شده</td></tr>
+                <tr><td class="price-col">840 جنيه</td><td class="shd-col">1200 شده</td></tr>
+                <tr><td class="price-col">990 جنيه</td><td class="shd-col">1440 شده</td></tr>
+                <tr><td class="price-col">1370 جنيه</td><td class="shd-col">2000 شده</td></tr>
+                <tr><td class="price-col">2450 جنيه</td><td class="shd-col">4000 شده</td></tr>
+                <tr><td class="price-col">3700 جنيه</td><td class="shd-col">6000 شده</td></tr>
+                <tr><td class="price-col">4980 جنيه</td><td class="shd-col">8000 شده</td></tr>
+                <tr><td class="price-col">8950 جنيه</td><td class="shd-col">16000 شده</td></tr>
+            </tbody>
+        </table>
+
+        <table class="offer-table">
+            <thead>
+                <tr>
+                    <th>العروض</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>اشتري 30 شده بسعر 20 جنيه بدل من <span class="discount">25 جنيه</span></td>
+                </tr>
+                <tr>
+                    <td>اشتري 360 شده بسعر 220 جنيه بدل من <span class="discount">245 جنيه</span></td>
+                </tr>
+                <tr>
+                    <td class="validity">العرض ساري حتى يوم 10 سبتمبر</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- WhatsApp button with circular image -->
+        <a href="https://wa.me/201001064267" class="whatsapp-btn">
+            <span>انتقل لمتابعه الشراء</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </a>
+    </div>
+
+</body>
+</html>
