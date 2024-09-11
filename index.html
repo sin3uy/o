@@ -11,6 +11,7 @@
             font-family: 'Cairo', sans-serif;
             background-color: #F3F3F3;
         }
+
         .top-menu {
             background-color: #141B3D;
             color: #FFFFFF;
@@ -38,7 +39,7 @@
             position: fixed;
             top: 80px;
             width: 100%;
-            z-index: 998;
+            z-index: 999;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,25 +54,20 @@
             display: inline-block;
         }
 
-        .status-online {
-            color: green;
-        }
-
-        .status-offline {
-            color: red;
+        .payment-bar, .working-hours-bar {
+            transition: transform 0.3s ease-in-out;
+            position: fixed;
+            width: 100%;
+            z-index: 998;
+            text-align: center;
+            line-height: 40px;
+            height: 40px;
         }
 
         .payment-bar {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(5px);
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            position: fixed;
             top: 110px;
-            width: 100%;
-            z-index: 997;
-            border-bottom: 1px solid #ddd;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -82,15 +78,12 @@
         .working-hours-bar {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(5px);
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            position: fixed;
             top: 150px;
-            width: 100%;
-            z-index: 996;
-            border-bottom: 1px solid #ddd;
             font-weight: bold;
+        }
+
+        .hidden {
+            transform: translateY(-100%);
         }
 
         .vodafone-cash {
@@ -197,15 +190,15 @@
     </div>
 
     <!-- شريط طرق الدفع المدعومة -->
-    <div class="payment-bar">
+    <div id="paymentBar" class="payment-bar">
         <span class="vodafone-cash">فودافون كاش</span>
         <span class="orange-cash">أورنج كاش</span>
         <span class="etisalat-cash">اتصالات كاش</span>
     </div>
 
     <!-- شريط مواعيد العمل -->
-    <div class="working-hours-bar">
-         متصلين: من 9:30 صباحًا إلى 11:30 مساء
+    <div id="workingHoursBar" class="working-hours-bar">
+        متصلين: من 9:30 صباحًا إلى 11:30 مساء
     </div>
 
     <div class="table-container">
@@ -254,39 +247,55 @@
             </tbody>
         </table>
 
-        <!-- زر شـراء -->
-        <a class="whatsapp-btn" href="https://wa.me/+201001064267" target="_blank">
-            شراـء
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="whatsapp-logo">
+        <!-- زر شراء -->
+        <a href="https://wa.me/+201001064267" class="whatsapp-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            شراء
         </a>
     </div>
 
     <script>
+        // تحديد حالة الاتصال بناءً على الوقت الحالي
+        const statusDot = document.getElementById("status-dot");
+        const statusText = document.getElementById("status-text");
+
         function updateStatus() {
             const now = new Date();
-            const statusText = document.getElementById("status-text");
-            const statusDot = document.getElementById("status-dot");
-
-            // احصل على الساعة والدقيقة الحالية
             const currentHour = now.getHours();
-            const currentMinute = now.getMinutes();
+            const currentMinutes = now.getMinutes();
 
-            // تحقق من الوقت بين 9:30 صباحًا و 11:30 مساءً
-            if ((currentHour > 9 || (currentHour === 9 && currentMinute >= 30)) && (currentHour < 23 || (currentHour === 23 && currentMinute <= 30))) {
-                statusText.textContent = "متصل الآن";
-                statusText.classList.add("status-online");
-                statusText.classList.remove("status-offline");
+            if ((currentHour > 9 || (currentHour === 9 && currentMinutes >= 30)) && (currentHour < 23 || (currentHour === 23 && currentMinutes <= 30))) {
                 statusDot.style.backgroundColor = "green";
+                statusText.innerText = "متصل الآن";
             } else {
-                statusText.textContent = "مغلق الآن";
-                statusText.classList.add("status-offline");
-                statusText.classList.remove("status-online");
                 statusDot.style.backgroundColor = "red";
+                statusText.innerText = "غير متصل";
             }
         }
 
         updateStatus();
-        setInterval(updateStatus, 60000); // يتم تحديث الحالة كل دقيقة
+        setInterval(updateStatus, 60000); // تحديث كل دقيقة
+
+        // التحكم في ظهور وإخفاء شريط طرق الدفع ومواعيد العمل بناءً على التمرير
+        let lastScrollTop = 0;
+        const paymentBar = document.getElementById('paymentBar');
+        const workingHoursBar = document.getElementById('workingHoursBar');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // التمرير للأسفل
+                paymentBar.classList.add('hidden');
+                workingHoursBar.classList.add('hidden');
+            } else {
+                // التمرير للأعلى
+                if (scrollTop === 0) {
+                    paymentBar.classList.remove('hidden');
+                    workingHoursBar.classList.remove('hidden');
+                }
+            }
+            lastScrollTop = scrollTop;
+        });
     </script>
 </body>
 </html>
