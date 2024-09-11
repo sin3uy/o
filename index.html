@@ -205,7 +205,7 @@
 
     <!-- شريط مواعيد العمل -->
     <div class="working-hours-bar">
-        مواعيد العمل: من 11:00 صباحًا إلى 12:00 منتصف الليل
+         متصلين: من 9:30 صباحًا إلى 11:30 مساء
     </div>
 
     <div class="table-container">
@@ -255,9 +255,9 @@
         </table>
 
         <!-- زر شـراء -->
-        <a class="whatsapp-btn" href="https://wa.me/201234567890" target="_blank">
+        <a class="whatsapp-btn" href="https://wa.me/+201001064267" target="_blank">
             شراـء
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="whatsapp-logo">
         </a>
     </div>
 
@@ -267,8 +267,13 @@
             const statusText = document.getElementById("status-text");
             const statusDot = document.getElementById("status-dot");
 
-            if (now.getHours() >= 11 && now.getHours() < 24) {
-                statusText.textContent = "مفتوح الآن";
+            // احصل على الساعة والدقيقة الحالية
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+
+            // تحقق من الوقت بين 9:30 صباحًا و 11:30 مساءً
+            if ((currentHour > 9 || (currentHour === 9 && currentMinute >= 30)) && (currentHour < 23 || (currentHour === 23 && currentMinute <= 30))) {
+                statusText.textContent = "متصل الآن";
                 statusText.classList.add("status-online");
                 statusText.classList.remove("status-offline");
                 statusDot.style.backgroundColor = "green";
@@ -281,6 +286,7 @@
         }
 
         updateStatus();
+        setInterval(updateStatus, 60000); // يتم تحديث الحالة كل دقيقة
     </script>
 </body>
 </html>
