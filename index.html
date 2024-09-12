@@ -12,27 +12,47 @@
             background-color: #F3F3F3;
         }
 
-        .top-menu {
-            background-color: #141B3D;
+        /* تعريف حركة التدرج */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .top-menu, .footer {
+            background: linear-gradient(45deg, #1B2452, #244AFF, #1B2452);
+            background-size: 200% 200%;
+            animation: gradientAnimation 7s ease infinite;
             color: #FFFFFF;
             text-align: center;
-            height: 80px;
-            line-height: 80px;
             font-size: 22px;
             font-weight: bold;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
             position: fixed;
             width: 100%;
+            z-index: 1000;
+        }
+
+        .top-menu {
+            height: 80px;
+            line-height: 80px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
             top: 0;
             left: 0;
-            z-index: 1000;
+        }
+
+        .footer {
+            padding: 5px 0;
+            font-size: 13px;
+            bottom: 0;
+            left: 0;
+            font-weight: bold;
         }
 
         .status-bar {
             background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(5px);
-            color: #141B3D;
+            color: #1B2452;
             height: 30px;
             line-height: 30px;
             text-align: center;
@@ -114,13 +134,16 @@
         }
 
         .price-table th, .price-table td, .offer-table th, .offer-table td {
-            border: 1px solid #141B3D;
+            border: 1px solid #1B2452;
             padding: 10px;
             text-align: center;
         }
 
+        /* تعديل لون الجداول لتدرج متحرك */
         .price-table th, .offer-table th {
-            background-color: #141B3D;
+            background: linear-gradient(45deg, #1B2452, #244AFF, #1B2452);
+            background-size: 200% 200%;
+            animation: gradientAnimation 7s ease infinite;
             color: #FFFFFF;
         }
 
@@ -143,7 +166,7 @@
         }
 
         .offer-table .validity {
-            background-color: #141B3D;
+            background-color: #1B2452;
             color: #FFFFFF;
             padding: 5px;
             border-radius: 5px;
@@ -191,14 +214,7 @@
 
     <!-- شريط طرق الدفع المدعومة -->
     <div id="paymentBar" class="payment-bar">
-        <span class="vodafone-cash">فودافون كاش</span>
-        <span class="orange-cash">أورنج كاش</span>
-        <span class="etisalat-cash">اتصالات كاش</span>
-    </div>
-
-    <!-- شريط مواعيد العمل -->
-    <div id="workingHoursBar" class="working-hours-bar">
-        متصلين: من 9:30 صباحًا إلى 11:30 مساء
+        <span class="orange-cash">متصلين: من 9:30 صباحًا إلى 11:30 مساء</span>
     </div>
 
     <div class="table-container">
@@ -252,6 +268,11 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
             شراء
         </a>
+    </div>
+
+    <!-- القائمة السفلية -->
+    <div class="footer">
+       © جميع الحقوق محفوظة في متجر سيناوي - 2024
     </div>
 
     <script>
