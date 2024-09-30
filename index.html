@@ -1,238 +1,70 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقع دردشة</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
-
+    <title>استبيان</title>
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e6e6e6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            direction: rtl;
-            overflow: hidden;
-        }
-
-        #chatIcon {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-image: url('https://i.postimg.cc/fTSQpGyD/customer-service.png');
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            z-index: 10;
-        }
-
-        #chatIcon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        #chatContainer {
+        #responseMessage {
             display: none;
             position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 350px;
-            height: 500px;
-            background-color: #fff;
-            z-index: 1000;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.5s ease-out;
-            flex-direction: column;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes buttonClick {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.1);
-            }
-        }
-
-        #chatHeader {
-            height: 70px;
-            background-color: #007b83;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-            color: #fff;
-            border-bottom: 1px solid #ccc;
-            flex-shrink: 0;
-        }
-
-        #closeButton {
-            background: url('https://i.postimg.cc/DZHm3tVs/close-1.png') no-repeat center center;
-            background-size: 20px 20px;
-            width: 30px;
-            height: 30px;
-            border: none;
-            cursor: pointer;
-            background-color: transparent;
-            transition: transform 0.3s ease;
-        }
-
-        #closeButton:active {
-            animation: buttonClick 0.1s ease-out;
-        }
-
-        #chat {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 10px;
-            background-color: #fafafa;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-
-        #inputContainer {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-top: 1px solid #ccc;
-            background-color: #fff;
-            flex-shrink: 0;
-        }
-
-        #messageInput {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: box-shadow 0.3s;
-            text-align: right;
-            margin-right: 10px;
-        }
-
-        #sendButton {
-            background: url('https://i.postimg.cc/P5q30Z2Z/send.png') no-repeat center center;
-            background-size: 25px 25px;
-            width: 40px;
-            height: 40px;
-            border: none;
-            cursor: pointer;
-            background-color: transparent;
-            outline: none;
-            transition: transform 0.3s ease;
-        }
-
-        #sendButton:active {
-            animation: buttonClick 0.1s ease-out;
-        }
-
-        .message-container {
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 15px;
-        }
-
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-image: url('https://i.postimg.cc/zB2wGwHY/user-profile.png');
-            background-size: cover;
-            background-position: center;
-            margin-left: 10px;
-        }
-
-        .message {
-            max-width: 70%;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: #e3f7fc; /* لون خلفية الرسالة */
-            color: #007b83;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            text-align: right;
-            word-wrap: break-word;
-            position: relative;
-            margin-right: 10px; /* إضافة مسافة من اليمين */
-            align-self: flex-end; /* لجعل الرسالة تظهر في الأسفل على اليمين */
-        }
-
-        .message-time {
-            font-size: 12px;
-            color: #888;
-            text-align: right;
-            margin-top: 5px;
-        }
-
-        @media only screen and (max-width: 768px) {
-            #chatContainer {
-                top: 10%;
-                left: 5%;
-                width: 90vw;
-                height: 80vh;
-                bottom: auto;
-                right: auto;
-                border-radius: 10px;
-                animation: fadeInUp 0.3s ease-out;
-                display: flex;
-            }
-
-            #chat {
-                height: calc(80vh - 120px);
-            }
-
-            #chatHeader {
-                height: 70px;
-                font-size: 18px;
-                padding: 0 20px;
-            }
-
-            #messageInput {
-                font-size: 16px;
-                padding: 12px;
-            }
-
-            #sendButton {
-                width: 50px;
-                height: 50px;
-                background-size: 30px 30px;
-            }
-
-            .message {
-                font-size: 16px;
-                padding: 12px;
-            }
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
+</head>
+<body>
+    <h1>استبيان</h1>
+    <form id="surveyForm">
+        <label for="name">الاسم:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="age">العمر:</label>
+        <input type="number" id="age" required><br><br>
+
+        <label for="institute">اختر المعهد/الكلية:</label>
+        <select id="institute" required>
+            <option value="">-- اختر --</option>
+            <option value="معهد فني تمريض قناه السويس">معهد فني تمريض قناه السويس</option>
+            <option value="كليه تمريض قناه السويس">كليه تمريض قناه السويس</option>
+        </select><br><br>
+
+        <label for="governorate">اختر محافظتك:</label>
+        <input type="text" id="governorate" placeholder="ادخل محافظتك" required><br><br>
+
+        <label>هل أنت طالب في الجامعة الآن؟</label><br>
+        <input type="radio" id="studentYes" name="isStudent" value="نعم" required>
+        <label for="studentYes">نعم</label><br>
+        <input type="radio" id="studentNo" name="isStudent" value="لا">
+        <label for="studentNo">لا</label><br><br>
+
+        <label>اختر الجنس:</label><br>
+        <input type="radio" id="male" name="gender" value="طالب" required>
+        <label for="male">طالب</label><br>
+        <input type="radio" id="female" name="gender" value="طالبة">
+        <label for="female">طالبة</label><br><br>
+
+        <label for="query">الاستفسار:</label>
+        <textarea id="query" required></textarea><br><br>
+
+        <button type="submit">إرسال</button>
+    </form>
+
+    <div id="responseMessage">
+        <h2>الرد على استفسارك:</h2>
+        <p id="responseText"></p>
+    </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBGWjR8bISWoGD1sY0aPy-dbOPYBMcASBg",
             authDomain: "chat-3929d.firebaseapp.com",
@@ -241,99 +73,70 @@
             storageBucket: "chat-3929d.appspot.com",
             messagingSenderId: "496799977662",
             appId: "1:496799977662:web:3a8b850c19aba2a72b0eef",
+            measurementId: "G-HMFGJY8ZYF"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const chat = document.getElementById('chat');
-            const messageInput = document.getElementById('messageInput');
-            const sendButton = document.getElementById('sendButton');
-            const chatIcon = document.getElementById('chatIcon');
-            const chatContainer = document.getElementById('chatContainer');
-            const closeButton = document.getElementById('closeButton');
-            
-            function scrollToBottom() {
-                chat.scrollTop = chat.scrollHeight;
-            }
-            
-            function loadMessages() {
-                const messagesRef = ref(database, 'messages');
-                onValue(messagesRef, (snapshot) => {
-                    chat.innerHTML = '';
-                    snapshot.forEach((childSnapshot) => {
-                        const message = childSnapshot.val();
-                        const messageContainer = document.createElement('div');
-                        messageContainer.classList.add('message-container');
+        const surveyForm = document.getElementById('surveyForm');
+        const responseMessage = document.getElementById('responseMessage');
+        const responseText = document.getElementById('responseText');
 
-                        const avatar = document.createElement('div');
-                        avatar.classList.add('message-avatar');
+        // Check if there is saved user data in localStorage
+        const savedSurveyKey = localStorage.getItem('surveyKey');
+        if (savedSurveyKey) {
+            // Fetch and display the saved response for this user
+            displayResponse(savedSurveyKey);
+        }
 
-                        const messageElement = document.createElement('div');
-                        messageElement.textContent = message;
-                        messageElement.classList.add('message');
+        // Function to display response
+        function displayResponse(surveyKey) {
+            const responseRef = ref(database, `surveys/${surveyKey}/response`);
+            onValue(responseRef, (snapshot) => {
+                const response = snapshot.val();
+                if (response) {
+                    responseText.innerText = response;
+                    responseMessage.style.display = 'block';
+                }
+            });
+        }
 
-                        const timeElement = document.createElement('div');
-                        timeElement.classList.add('message-time');
-                        
-                        // الحصول على الوقت الحالي
-                        const now = new Date();
-let hours = now.getHours();
-const minutes = now.getMinutes();
-const ampm = hours >= 12 ? 'م' : 'ص';
-hours = hours % 12;
-hours = hours ? hours : 12; // تحويل الساعة 0 إلى 12 مساءً
-const strTime = hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ' ' + ampm;
-timeElement.textContent = strTime;
-                        
-                        messageContainer.appendChild(avatar);
-                        messageContainer.appendChild(messageElement);
-                        messageElement.appendChild(timeElement);
-                        chat.appendChild(messageContainer);
-                        });
-                        scrollToBottom();
-                        });
-                        }
-                        
-                        sendButton.addEventListener('click', () => {
-                        const message = messageInput.value.trim();
-                        if (message) {
-                        const messagesRef = ref(database, 'messages');
-                        push(messagesRef, message);
-                        messageInput.value = '';
-                        }
-                        });
-                        
-                        chatIcon.addEventListener('click', () => {
-    chatContainer.style.display = 'flex';
-    loadMessages();  // هذه الدالة ستعمل فقط عند الضغط على أيقونة الدردشة
-});
-                        
-                        closeButton.addEventListener('click', () => {
-                        chatContainer.style.display = 'none';
-                        });
-                        
-                        messageInput.addEventListener('keypress', (event) => {
-                        if (event.key === 'Enter') {
-                        sendButton.click();
-                        }
-                        });
-                        });
-                        </script>
-                        </head>
-                        <body>
-                        <div id="chatIcon"></div>
-                        <div id="chatContainer">
-                        <div id="chatHeader">
-                        <h2>الدردشة</h2>
-                        <button id="closeButton"></button>
-                        </div>
-                        <div id="chat"></div>
-                        <div id="inputContainer">
-                        <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
-                        <button id="sendButton"></button>
-                        </div>
-                        </div>
-                        </body>
-                        </html>
+        // Handle form submission
+        surveyForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const institute = document.getElementById('institute').value;
+            const governorate = document.getElementById('governorate').value;
+            const isStudent = document.querySelector('input[name="isStudent"]:checked').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const query = document.getElementById('query').value;
+
+            // Save the data to Firebase and get the unique key for this survey
+            const dbRef = ref(database, 'surveys');
+            const newSurveyRef = push(dbRef, {
+                name: name,
+                age: age,
+                institute: institute,
+                governorate: governorate,
+                isStudent: isStudent,
+                gender: gender,
+                query: query,
+                response: "" // Initially no response
+            });
+
+            // Store the unique key in localStorage so we can retrieve it later
+            localStorage.setItem('surveyKey', newSurveyRef.key);
+
+            alert("تم إرسال البيانات بنجاح!");
+            surveyForm.reset();
+
+            // Start monitoring for responses to this survey
+            displayResponse(newSurveyRef.key);
+        });
+    </script>
+</body>
+</html>
