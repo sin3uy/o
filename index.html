@@ -2,314 +2,338 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>متجر سيناوي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع دردشة</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
+
     <style>
         body {
-            margin: 0;
             font-family: 'Cairo', sans-serif;
-            background-color: #F3F3F3;
-        }
-
-        /* تعريف حركة التدرج */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .top-menu, .footer {
-            background: linear-gradient(45deg, #1B2452, #244AFF, #1B2452);
-            background-size: 200% 200%;
-            animation: gradientAnimation 7s ease infinite;
-            color: #FFFFFF;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .top-menu {
-            height: 80px;
-            line-height: 80px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            top: 0;
-            left: 0;
-        }
-
-        .footer {
-            padding: 5px 0;
-            font-size: 13px;
-            bottom: 0;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .status-bar {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            color: #1B2452;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            position: fixed;
-            top: 80px;
-            width: 100%;
-            z-index: 999;
+            margin: 0;
+            padding: 0;
+            background-color: #e6e6e6;
             display: flex;
-            align-items: center;
             justify-content: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-left: 8px;
-            display: inline-block;
-        }
-
-        .payment-bar, .working-hours-bar {
-            transition: transform 0.3s ease-in-out;
-            position: fixed;
-            width: 100%;
-            z-index: 998;
-            text-align: center;
-            line-height: 40px;
-            height: 40px;
-        }
-
-        .payment-bar {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            top: 110px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            font-weight: bold;
-        }
-
-        .working-hours-bar {
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            top: 150px;
-            font-weight: bold;
-        }
-
-        .hidden {
-            transform: translateY(-100%);
-        }
-
-        .vodafone-cash {
-            color: red;
-        }
-
-        .orange-cash {
-            color: orange;
-        }
-
-        .etisalat-cash {
-            color: green;
-        }
-
-        .table-container {
-            width: 90%;
-            margin: 200px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .price-table, .offer-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .price-table th, .price-table td, .offer-table th, .offer-table td {
-            border: 1px solid #1B2452;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .price-table th, .offer-table th {
-            background-color: #1B2452;
-            color: #FFFFFF;
-        }
-
-        .price-table td, .offer-table td {
-            background-color: #FFFFFF;
+            height: 100vh;
             direction: rtl;
+            overflow: hidden;
         }
 
-        .price-table th, .price-table td {
-            width: 50%;
+        #chatIcon {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-image: url('https://i.postimg.cc/fTSQpGyD/customer-service.png');
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 10;
         }
 
-        .price-table .price-col, .price-table .shd-col {
-            text-align: center;
+        #chatIcon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .offer-table .discount {
-            color: red;
-            text-decoration: line-through;
+        #chatContainer {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 350px;
+            height: 500px;
+            background-color: #fff;
+            z-index: 1000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.5s ease-out;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        .offer-table .validity {
-            background-color: #1B2452;
-            color: #FFFFFF;
-            padding: 5px;
-            border-radius: 5px;
-            font-weight: bold;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .whatsapp-btn {
+        @keyframes buttonClick {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        #chatHeader {
+            height: 70px;
+            background-color: #007b83;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            background-color: #25D366;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 20px auto;
-            width: fit-content;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0 15px;
+            color: #fff;
+            border-bottom: 1px solid #ccc;
+            flex-shrink: 0;
         }
 
-        .whatsapp-btn:hover {
-            background-color: #20c659;
-            transform: scale(1.05);
-        }
-
-        .whatsapp-btn img {
-            margin-left: 10px;
+        #closeButton {
+            background: url('https://i.postimg.cc/DZHm3tVs/close-1.png') no-repeat center center;
+            background-size: 20px 20px;
             width: 30px;
             height: 30px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        #closeButton:active {
+            animation: buttonClick 0.1s ease-out;
+        }
+
+        #chat {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #fafafa;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        #inputContainer {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+
+        #messageInput {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: box-shadow 0.3s;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        #sendButton {
+            background: url('https://i.postimg.cc/P5q30Z2Z/send.png') no-repeat center center;
+            background-size: 25px 25px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+            outline: none;
+            transition: transform 0.3s ease;
+        }
+
+        #sendButton:active {
+            animation: buttonClick 0.1s ease-out;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background-image: url('https://i.postimg.cc/zB2wGwHY/user-profile.png');
+            background-size: cover;
+            background-position: center;
+            margin-left: 10px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #e3f7fc; /* لون خلفية الرسالة */
+            color: #007b83;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: right;
+            word-wrap: break-word;
+            position: relative;
+            margin-right: 10px; /* إضافة مسافة من اليمين */
+            align-self: flex-end; /* لجعل الرسالة تظهر في الأسفل على اليمين */
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #chatContainer {
+                top: 10%;
+                left: 5%;
+                width: 90vw;
+                height: 80vh;
+                bottom: auto;
+                right: auto;
+                border-radius: 10px;
+                animation: fadeInUp 0.3s ease-out;
+                display: flex;
+            }
+
+            #chat {
+                height: calc(80vh - 120px);
+            }
+
+            #chatHeader {
+                height: 70px;
+                font-size: 18px;
+                padding: 0 20px;
+            }
+
+            #messageInput {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            #sendButton {
+                width: 50px;
+                height: 50px;
+                background-size: 30px 30px;
+            }
+
+            .message {
+                font-size: 16px;
+                padding: 12px;
+            }
         }
     </style>
-</head>
-<body>
-    <div class="top-menu">متجر سيناوي</div>
 
-    <!-- شريط الحالة -->
-    <div class="status-bar">
-        <span id="status-dot" class="status-dot"></span>
-        <span id="status-text">جاري التحقق من الحالة...</span>
-    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-    <!-- شريط مواعيد العمل -->
-<div id="paymentBar" class="payment-bar">
-نعمل من 9:30 صباحًا إلى 11:30 مساء</span>
-</div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGWjR8bISWoGD1sY0aPy-dbOPYBMcASBg",
+            authDomain: "chat-3929d.firebaseapp.com",
+            databaseURL: "https://chat-3929d-default-rtdb.firebaseio.com",
+            projectId: "chat-3929d",
+            storageBucket: "chat-3929d.appspot.com",
+            messagingSenderId: "496799977662",
+            appId: "1:496799977662:web:3a8b850c19aba2a72b0eef",
+        };
 
-    <div class="table-container">
-        <table class="price-table">
-            <thead>
-                <tr>
-                    <th>السعر</th>
-                    <th>عدد الشدات</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td class="price-col">25 جنيه</td><td class="shd-col">30 شده</td></tr>
-                <tr><td class="price-col">50 جنيه</td><td class="shd-col">60 شده</td></tr>
-                <tr><td class="price-col">100 جنيه</td><td class="shd-col">120 شده</td></tr>
-                <tr><td class="price-col">195 جنيه</td><td class="shd-col">270 شده</td></tr>
-                <tr><td class="price-col">225 جنيه</td><td class="shd-col">325 شده</td></tr>
-                <tr><td class="price-col">250 جنيه</td><td class="shd-col">360 شده</td></tr>
-                <tr><td class="price-col">500 جنيه</td><td class="shd-col">720 شده</td></tr>
-                <tr><td class="price-col">855 جنيه</td><td class="shd-col">1200 شده</td></tr>
-                <tr><td class="price-col">1000 جنيه</td><td class="shd-col">1440 شده</td></tr>
-                <tr><td class="price-col">1370 جنيه</td><td class="shd-col">2000 شده</td></tr>
-                <tr><td class="price-col">2680 جنيه</td><td class="shd-col">4000 شده</td></tr>
-                <tr><td class="price-col">3900 جنيه</td><td class="shd-col">6000 شده</td></tr>
-                <tr><td class="price-col">5360 جنيه</td><td class="shd-col">8000 شده</td></tr>
-                <tr><td class="price-col">10250 جنيه</td><td class="shd-col">16000 شده</td></tr>
-                <tr><td class="price-col">19800 جنيه</td><td class="shd-col">32000 شده</td></tr>
-            </tbody>
-        </table>
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-        <table class="offer-table">
-            <thead>
-                <tr>
-                    <th>العروض</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    
-                <tr>
-                    <td class="validity">لا يوجد عرووض حاليا</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- زر شراء -->
-        <a href="https://wa.me/+201001064267" class="whatsapp-btn">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            شراء
-        </a>
-    </div>
-
-    <!-- القائمة السفلية -->
-    <div class="footer">
-    جميع الحقوق محفوظة من سيناوي
-    </div>
-
-    <script>
-        // تحديد حالة الاتصال بناءً على الوقت الحالي
-        const statusDot = document.getElementById("status-dot");
-        const statusText = document.getElementById("status-text");
-
-        function updateStatus() {
-            const now = new Date();
-            const currentHour = now.getHours();
-            const currentMinutes = now.getMinutes();
-
-            if ((currentHour > 9 || (currentHour === 9 && currentMinutes >= 30)) && (currentHour < 23 || (currentHour === 23 && currentMinutes <= 30))) {
-                statusDot.style.backgroundColor = "green";
-                statusText.innerText = "متصل الآن";
-            } else {
-                statusDot.style.backgroundColor = "red";
-                statusText.innerText = "غير متصل";
+        document.addEventListener('DOMContentLoaded', () => {
+            const chat = document.getElementById('chat');
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const chatIcon = document.getElementById('chatIcon');
+            const chatContainer = document.getElementById('chatContainer');
+            const closeButton = document.getElementById('closeButton');
+            
+            function scrollToBottom() {
+                chat.scrollTop = chat.scrollHeight;
             }
-        }
+            
+            function loadMessages() {
+                const messagesRef = ref(database, 'messages');
+                onValue(messagesRef, (snapshot) => {
+                    chat.innerHTML = '';
+                    snapshot.forEach((childSnapshot) => {
+                        const message = childSnapshot.val();
+                        const messageContainer = document.createElement('div');
+                        messageContainer.classList.add('message-container');
 
-        updateStatus();
-        setInterval(updateStatus, 60000); // تحديث كل دقيقة
+                        const avatar = document.createElement('div');
+                        avatar.classList.add('message-avatar');
 
-        // التحكم في ظهور وإخفاء شريط طرق الدفع ومواعيد العمل بناءً على التمرير
-        let lastScrollTop = 0;
-        const paymentBar = document.getElementById('paymentBar');
-        const workingHoursBar = document.getElementById('workingHoursBar');
+                        const messageElement = document.createElement('div');
+                        messageElement.textContent = message;
+                        messageElement.classList.add('message');
 
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                // التمرير للأسفل
-                paymentBar.classList.add('hidden');
-                workingHoursBar.classList.add('hidden');
-            } else {
-                // التمرير للأعلى
-                if (scrollTop === 0) {
-                    paymentBar.classList.remove('hidden');
-                    workingHoursBar.classList.remove('hidden');
-                }
-            }
-            lastScrollTop = scrollTop;
-        });
-    </script>
-</body>
-</html>
+                        const timeElement = document.createElement('div');
+                        timeElement.classList.add('message-time');
+                        
+                        // الحصول على الوقت الحالي
+                        const now = new Date();
+let hours = now.getHours();
+const minutes = now.getMinutes();
+const ampm = hours >= 12 ? 'م' : 'ص';
+hours = hours % 12;
+hours = hours ? hours : 12; // تحويل الساعة 0 إلى 12 مساءً
+const strTime = hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ' ' + ampm;
+timeElement.textContent = strTime;
+                        
+                        messageContainer.appendChild(avatar);
+                        messageContainer.appendChild(messageElement);
+                        messageElement.appendChild(timeElement);
+                        chat.appendChild(messageContainer);
+                        });
+                        scrollToBottom();
+                        });
+                        }
+                        
+                        sendButton.addEventListener('click', () => {
+                        const message = messageInput.value.trim();
+                        if (message) {
+                        const messagesRef = ref(database, 'messages');
+                        push(messagesRef, message);
+                        messageInput.value = '';
+                        }
+                        });
+                        
+                        chatIcon.addEventListener('click', () => {
+    chatContainer.style.display = 'flex';
+    loadMessages();  // هذه الدالة ستعمل فقط عند الضغط على أيقونة الدردشة
+});
+                        
+                        closeButton.addEventListener('click', () => {
+                        chatContainer.style.display = 'none';
+                        });
+                        
+                        messageInput.addEventListener('keypress', (event) => {
+                        if (event.key === 'Enter') {
+                        sendButton.click();
+                        }
+                        });
+                        });
+                        </script>
+                        </head>
+                        <body>
+                        <div id="chatIcon"></div>
+                        <div id="chatContainer">
+                        <div id="chatHeader">
+                        <h2>الدردشة</h2>
+                        <button id="closeButton"></button>
+                        </div>
+                        <div id="chat"></div>
+                        <div id="inputContainer">
+                        <input type="text" id="messageInput" placeholder="اكتب رسالتك هنا..." />
+                        <button id="sendButton"></button>
+                        </div>
+                        </div>
+                        </body>
+                        </html>
