@@ -4,60 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تنزيل سينا ستور - التطبيق الرسمي</title>
-    <meta name="theme-color" content="#BDA284">
+    <meta name="theme-color" content="#6a5acd">
     <meta name="description" content="حمل تطبيق سينا ستور الآن لتجربة تسوق آمنة ومميزة">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #BDA284;
-            --primary-dark: #8a6d52;
-            --dark: #2a241f;
-            --darker: #1a1613;
-            --light: #f5f2ef;
-            --lighter: #FFFCF9;
-            --accent: #d4c4b0;
+            --primary: #6a5acd;
+            --primary-light: #9370db;
+            --primary-dark: #4b3d8f;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --dark: #2c3e50;
+            --darker: #1a1a2e;
+            --text: #333333;
+            --text-light: #777777;
             --success: #28a745;
+            --warning: #fd7e14;
             --error: #dc3545;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
             touch-action: manipulation;
         }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
-        
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            position: fixed;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, var(--darker), var(--dark));
-            color: var(--lighter);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf2 100%);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            line-height: 1.6;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            line-height: 1.6;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            transform-origin: center center;
-            transform: scale(1) !important;
         }
-        
+
         /* شاشة التحميل */
         #loading-screen {
             position: fixed;
@@ -73,152 +67,123 @@
             flex-direction: column;
             gap: 20px;
         }
-        
+
         .loader {
-            border: 5px solid rgba(189, 162, 132, 0.3);
-            border-top: 5px solid var(--accent);
+            border: 5px solid rgba(106, 90, 205, 0.3);
+            border-top: 5px solid var(--primary-light);
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
         }
-        
+
         .loading-text {
             color: var(--light);
             font-size: 18px;
             font-weight: 500;
         }
-        
-        .app-container {
-            perspective: 1000px;
+
+        /* الهيكل الرئيسي */
+        .download-container {
             width: 100%;
-            max-width: 400px;
-            position: relative;
-            margin: auto;
-        }
-        
-        .app-card {
-            background: rgba(42, 36, 31, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow);
             text-align: center;
-            transform-style: preserve-3d;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(189, 162, 132, 0.2);
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
+            border: 1px solid rgba(106, 90, 205, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        
-        .app-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
-                        0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-        
+
         .app-icon-container {
-            position: relative;
             width: 120px;
             height: 120px;
-            margin: 0 auto 25px;
+            margin: 0 auto;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
+
         .app-icon-bg {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 28px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            border-radius: 25px;
             transform: rotate(45deg);
-            opacity: 0.15;
+            opacity: 0.1;
             animation: pulse 6s infinite alternate;
         }
-        
+
         .app-icon {
-            width: 110px;
-            height: 110px;
-            border-radius: 24px;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
             object-fit: cover;
             z-index: 2;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(106, 90, 205, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.2);
         }
-        
-        .app-icon:hover {
-            transform: scale(1.05) rotate(-2deg);
-        }
-        
+
         .app-name {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
+            color: var(--primary-dark);
+            margin-top: 10px;
         }
-        
+
         .app-developer {
-            color: var(--light);
-            opacity: 0.8;
+            color: var(--text-light);
             font-size: 14px;
-            margin-bottom: 25px;
-            font-weight: 300;
+            margin-bottom: 10px;
         }
-        
-        .app-stats {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+
+        /* جدول الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
         }
-        
+
         .stat-item {
+            background: rgba(106, 90, 205, 0.05);
+            border-radius: 10px;
+            padding: 12px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 80px;
+            border: 1px solid rgba(106, 90, 205, 0.1);
         }
-        
+
         .stat-icon {
-            width: 44px;
-            height: 44px;
-            background: rgba(189, 162, 132, 0.1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 8px;
             color: var(--primary);
-            font-size: 18px;
-            border: 1px solid rgba(189, 162, 132, 0.3);
+            font-size: 16px;
+            margin-bottom: 5px;
         }
-        
+
         .stat-value {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
+            color: var(--primary-dark);
             margin-bottom: 2px;
         }
-        
+
         .stat-label {
             font-size: 12px;
-            opacity: 0.7;
-            color: var(--light);
+            color: var(--text-light);
         }
-        
+
+        /* زر التحميل */
         .download-btn {
-            background: linear-gradient(to right, var(--primary), var(--accent));
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
             color: white;
             border: none;
-            padding: 16px 0;
+            padding: 14px 0;
             border-radius: 50px;
             font-size: 16px;
             font-weight: 600;
@@ -227,41 +192,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(189, 162, 132, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(106, 90, 205, 0.3);
+            transition: var(--transition);
+            margin-top: 10px;
         }
-        
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
+
         .download-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(189, 162, 132, 0.6);
+            box-shadow: 0 8px 25px rgba(106, 90, 205, 0.4);
         }
-        
-        .download-btn:hover::before {
-            left: 100%;
-        }
-        
-        .size-info {
+
+        .version-info {
             font-size: 12px;
-            color: var(--light);
-            opacity: 0.7;
-            margin-top: 15px;
+            color: var(--text-light);
+            margin-top: 10px;
         }
-        
+
         /* رسائل الحماية */
         .protection-message {
             position: fixed;
@@ -278,80 +226,41 @@
             max-width: 90%;
             text-align: center;
         }
-        
+
         /* تأثيرات الحركة */
         @keyframes pulse {
-            0% { opacity: 0.15; }
-            50% { opacity: 0.25; }
-            100% { opacity: 0.15; }
+            0% { opacity: 0.1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 0.1; }
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        /* جسيمات الخلفية */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-        
-        @media (max-width: 480px) {
-            .app-card {
+
+        /* تعديلات للشاشات الصغيرة */
+        @media (max-width: 400px) {
+            .download-container {
                 padding: 20px;
             }
             
             .app-icon-container {
                 width: 100px;
                 height: 100px;
-                margin-bottom: 20px;
-            }
-            
-            .app-icon {
-                width: 90px;
-                height: 90px;
             }
             
             .app-name {
-                font-size: 24px;
-            }
-            
-            .app-stats {
-                gap: 15px;
-            }
-            
-            .stat-item {
-                min-width: 70px;
-            }
-        }
-        
-        @media (max-width: 350px) {
-            .app-card {
-                padding: 15px;
-            }
-            
-            .app-stats {
-                gap: 10px;
-            }
-            
-            .stat-item {
-                min-width: 60px;
-            }
-            
-            .stat-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
+                font-size: 20px;
             }
             
             .stat-value {
-                font-size: 16px;
+                font-size: 14px;
+            }
+            
+            .download-btn {
+                font-size: 14px;
+                padding: 12px 0;
             }
         }
     </style>
@@ -363,53 +272,50 @@
         <div class="loading-text">جاري التحميل...</div>
     </div>
 
-    <!-- جسيمات الخلفية -->
-    <canvas class="particles"></canvas>
-
     <!-- المحتوى الرئيسي -->
-    <div class="app-container">
-        <div class="app-card">
-            <div class="app-icon-container">
-                <div class="app-icon-bg"></div>
-                <img src="https://i.postimg.cc/k5TYGfSF/image.jpg" alt="سينا ستور" class="app-icon">
-            </div>
-            
-            <h1 class="app-name">سينا ستور</h1>
-            <div class="app-developer">Sina Store Mobile LLC</div>
-            
-            <div class="app-stats">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <div class="stat-value">+500</div>
-                    <div class="stat-label">تنزيل</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-value">4.8</div>
-                    <div class="stat-label">تقييم</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <div class="stat-value">28.9MB</div>
-                    <div class="stat-label">حجم</div>
-                </div>
-            </div>
-            
-            <a href="https://www.mediafire.com/file/4y1yienbcp2taj0/%25D8%25B3%25D9%258A%25D9%2586%25D8%25A7_%25D8%25B3%25D8%25AA%25D9%2588%25D8%25B1.apk/file" class="download-btn" id="downloadBtn">
-                <i class="fas fa-download"></i>
-                تحميل التطبيق
-            </a>
-            
-            <div class="size-info">الإصدار 1.3 | متوافق مع أندرويد 5.0+</div>
+    <div class="download-container">
+        <div class="app-icon-container">
+            <div class="app-icon-bg"></div>
+            <img src="https://i.postimg.cc/7hCdVJLr/image.jpg" alt="سينا ستور" class="app-icon">
         </div>
+        
+        <h1 class="app-name">سينا ستور</h1>
+        <div class="app-developer">Sina Store Mobile LLC</div>
+        
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="stat-value">+500</div>
+                <div class="stat-label">تنزيل</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-value">4.8</div>
+                <div class="stat-label">تقييم</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="stat-value">28.9MB</div>
+                <div class="stat-label">حجم</div>
+            </div>
+        </div>
+        
+        <a href="https://www.mediafire.com/file/4y1yienbcp2taj0/%25D8%25B3%25D9%258A%25D9%2586%25D8%25A7_%25D8%25B3%25D8%25AA%25D9%2588%25D8%25B1.apk/file" 
+           class="download-btn" 
+           id="downloadBtn">
+            <i class="fas fa-download"></i>
+            تحميل التطبيق
+        </a>
+        
+        <div class="version-info">الإصدار 1.3 | متوافق مع أندرويد 5.0+</div>
     </div>
 
     <!-- رسائل الحماية -->
@@ -423,66 +329,6 @@
             }, 1000);
         });
 
-        // جسيمات الخلفية المتحركة
-        const canvas = document.querySelector('.particles');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        
-        resizeCanvas();
-
-        const particles = [];
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speed = Math.random() * 0.3 + 0.1;
-            }
-
-            update() {
-                this.y += this.speed;
-                if (this.y > canvas.height) {
-                    this.y = 0;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(189, 162, 132, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles.length = 0;
-            for (let i = 0; i < 80; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        }
-
-        initParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-
         // حماية الصفحة
         document.addEventListener('keydown', function(e) {
             if (e.key === 'F12' || 
@@ -493,7 +339,6 @@
                 showProtectionMessage('غير مسموح بفتح أدوات المطور');
             }
             
-            // منع تكبير/تصغير الصفحة بالكيبورد
             if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
                 e.preventDefault();
                 showProtectionMessage('غير مسموح بتغيير حجم الصفحة');
@@ -522,7 +367,6 @@
             }
         });
 
-        // منع التكبير/التصغير باللمس
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
             showProtectionMessage('غير مسموح بتغيير حجم الصفحة');
@@ -548,7 +392,6 @@
         document.getElementById('downloadBtn').addEventListener('click', function(e) {
             showProtectionMessage('جاري تحميل التطبيق، الرجاء الانتظار...');
             
-            // يمكنك إضافة تتبع للتحميل هنا
             setTimeout(() => {
                 showProtectionMessage('تم بدء تحميل التطبيق بنجاح');
             }, 1500);
@@ -565,7 +408,6 @@
             document.body.style.transform = 'scale(1)';
         }
 
-        // مراقبة تغيير الحجم وإعادته إلى الوضع الطبيعي
         setInterval(enforceFixedScale, 100);
     </script>
 </body>
